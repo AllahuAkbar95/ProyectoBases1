@@ -1,0 +1,104 @@
+@charset "utf-8";
+*
+{
+    font-family: sans-serif, cursive;
+    padding: 0px;
+    margin: 0px;
+}
+body
+{
+    background-color: #eff2dc;
+}
+div#bodyIndex
+{
+    background-image: url("hospital.jpg");
+    overflow: hidden;
+    width: 100%;
+    height: 675px;
+}
+div#contIndex
+{
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    font-size: 20px;
+}
+div#cabecera
+{
+ background-color: #3E4729;  
+ /*#88ab0c*/
+}
+div#contenidoCabecera
+{
+    width: 400px;
+    height: 40px;
+    position: absolute;
+    left: 300px;
+    top: 34px;
+    text-align: center;
+}
+ul
+{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+li
+{
+    float: left;
+}
+
+li a
+{
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+li a:hover
+{
+    background-color: #2C3615;
+}
+div#cabecera #seleccionTabla
+{
+    height: 40px;
+    width: 300px;
+    position: absolute;
+    right: 300px;
+    top: 44px;
+}
+select
+{
+    background-color: #3E4729;
+    font-size: 15px;
+    color: white;
+    height: 35px;
+}
+.boton
+{
+    height: 35px;
+    margin-left: 10px;
+}
+.requerido
+{
+    height: 20px;
+}
+.requerido:invalid
+{
+    border-color: #CE0E18;
+    box-shadow: 0px 0px 6px #CE0E18;
+}
+div#cuerpo
+{
+    width: 100%;
+}
+table
+{
+    padding: 30px;
+}
+td, tr
+{
+    padding: 4px;
+}
