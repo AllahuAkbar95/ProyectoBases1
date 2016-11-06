@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
     <html>
         <head>
             <link href="css/estilo.css" rel="stylesheet" type="text/css">
@@ -39,19 +39,64 @@
                             $nomTabla = $_POST['nomTabla'];
                             while(isset($_POST[$i+1]))
                             {
-                                if($metodos->validarCampo($_POST[$i]))
+                                if($metodos->validarCampo($_POST[$i]) && $_POST[$i+1] !="")//ksjdfkjs
                                 {
                                     $qwerty = $qwerty.$_POST[$i].',';
                                 }
-                                else
+                                else if($metodos->validarCampo($_POST[$i]))
+                                {
+                                    $qwerty = $qwerty.$_POST[$i];
+                                }
+                                else if(!$metodos->validarCampo($_POST[$i]) && $_POST[$i+1] !="")
                                 {
                                     $qwerty = $qwerty.'\''.$_POST[$i].'\',';
                                 }
+                                else
+                                {
+                                    $qwerty = $qwerty.'\''.$_POST[$i].'\'';
+                                }
                                 $i ++;
                             }
-                            $qwerty = $qwerty.'\''.$_POST[$i].'\'';
-                            $qwertyEnviar = "insert into $nomTabla values($qwerty)";
-                            //$conection =$metodos->conectar();
+                            echo $qwerty."<br>";
+                            if($_POST[$i] != "")
+                            {
+                                $qwerty = $qwerty.'\''.$_POST[$i].'\'';
+                            }
+                            echo $qwerty;
+                            if($nomTabla != "empleado" && $nomTabla != "paciente" && $nomTabla != "conjunto_empleado") //gggg que pendejo :v
+                            {
+                                $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+                                $qwertyCol = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS
+                                            where TABLE_NAME = '$nomTabla'";
+                                $resultado = pg_exec($conection,$qwertyCol);
+                                pg_close($conection);
+                                $qwertyAux="";
+                                $i = 0;
+                                while ($row = pg_fetch_array($resultado))
+                                {
+                                    if($i == 1)
+                                    {
+                                        if($qwertyAux != "")
+                                        {
+                                            $qwertyAux = $qwertyAux.",".$row[0];
+                                        }
+                                        else
+                                        {
+                                            $qwertyAux = $row[0];
+                                        }  
+                                    }
+                                    else
+                                    {
+                                        $i++;
+                                    }                            
+                                }
+                                $qwertyEnviar = "insert into $nomTabla ($qwertyAux) values($qwerty)";
+                            }
+                            else
+                            {
+                                $qwertyEnviar = "insert into $nomTabla values($qwerty)";
+                            }                           
                             $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
                                 or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
                             $resultado = pg_exec($conection,$qwertyEnviar)
