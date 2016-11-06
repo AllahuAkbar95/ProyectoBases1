@@ -1,12 +1,18 @@
 <?php
 class metodos
 {
-    var $paciente = array("documento: ","nombre: ","apellido: ");
+    //var $tablas = array("asignacion","ciudad","conjunto_empleado","conjunto_tecnica","empleado","especialidad","instrumento","inventario_instrumento","paciente","pais","profesion","sucursal","tecnica","tratamiento");
     var $tipoPaciente = array("number","text","text","text");
-    var $empleado = array("documento: ","nombre: ", "apellido: ","profesion: ");
     var $tipoEmpleado = array("number","text","text","number","number");
-    var $sucursal = array("codigo del pais: ", "codigo de la ciudad: ", "nombre de la sucursal:");
+    var $tipoProfesion = array("text","number");
+    var $tipoAsignacion = array("number","number","number","number");
+    var $tipoTratamiento = array("number","text");
     var $tipoSucursal = array("number","number","text");
+    var $tipoConjuntoEmpleado = array("number","number");
+    var $tipoInventarioInstrumento = array("number","number","number");
+    var $tipoCiudad = array("number","text");
+    var $tipoPais = array("text");
+    
     function encabezado()
     {
         ?>
@@ -25,7 +31,7 @@ class metodos
                             <option value="paciente">Paciente</option>
                             <option value="empleado">Empleado</option>
                             <option value="profesion">Profesion</option>
-                            <option value="especializacion">Especializacion</option>
+                            <option value="especialidad">Especializacion</option>
                             <option value="sucursal">Sucursal</option>
                             <option value="ciudad">Ciudad</option>
                             <option value="pais">Pais</option>
@@ -33,6 +39,9 @@ class metodos
                             <option value="tecnica">Tecnica</option>
                             <option value="tratamiento">Tratamiento</option>
                             <option value="asignacion">Asignacion</option>
+                            <option value="conjunto_empleado">conjunto de empleados</option>
+                            <option value="conjunto_tecnica">conjunto de tecnicas</option>
+                            <option value="inventario_instrumento">inventario de instrumentos</option>
                         </select>
                         <input type="submit" value="Seleccionar Tabla" class="boton" name="selTabla">
                     </form>
@@ -55,27 +64,111 @@ class metodos
     
     function selectTable($nomTabla)
     {
+        //automatizar con un for
+        /*for($i =0; $i<13; $i++)
+        {
+            if($nomTabla == $this->tablas[$i])
+            {
+                if($nomTabla == "paciente" || $nomTabla == "empleado"  || $nomTabla == "tratamiento" || $nomTabla == "pais" || $nomTabla == "instrumento")
+                {
+                    echo "<tr><th colspan=\"2\"><h3>Datos del nuevo $nomTabla</h3></th></tr>";
+                }
+                else if()
+                {
+                    
+                }
+            }
+        }*/
         echo "<input type=\"hidden\" name=\"nomTabla\" value=\"$nomTabla\">";
         if($nomTabla == "paciente")
         {
+            $paciente = array("documento: ","nombre: ","apellido: ");
             echo '<tr><th colspan="2"><h3>Datos del paciente</h3></th></tr>';
-            $this->tablaInsertar($this->paciente,$this->tipoPaciente);
+            $this->tablaInsertar($paciente,$this->tipoPaciente);
         }
         else if($nomTabla == "empleado")
         {
+            $empleado = array("documento: ","nombre: ", "apellido: ","profesion: ");
             echo '<tr><th colspan="2"><h3>Datos del empleado</h3></th></tr>';
-            $this->tablaInsertar($this->empleado,$this->tipoEmpleado);
+            $this->tablaInsertar($empleado,$this->tipoEmpleado);
             //if insertar
             ?>
-                <td id="cantEsp">especialización: </td>
+                <td id="especializacion">especialización: </td>
                 <td><input type="number" class="requerido" name="4" id="4" placeholder="codigo de la esp" ></td>
             <?php
             //consultar profesiones y especializaciones
         }
-        else if($nomTabla == "sede")
+        else if($nomTabla == "profesion")
         {
-            echo '<tr><th colspan="2"><h3>Datos de la nueva sede</h3></th></tr>';
-            
+            $profesion = array("nombre: ","salario: ");
+            echo '<tr><th colspan="2"><h3>Datos de la nueva profesion</h3></th></tr>';
+            $this->tablaInsertar($profesion,$this->tipoProfesion);
+        }
+        else if($nomTabla == "especialidad")
+        {
+            $profesion = array("nombre: ","salario: ");
+            echo '<tr><th colspan="2"><h3>Datos de la nueva especialidad</h3></th></tr>';
+            $this->tablaInsertar($profesion,$this->tipoProfesion);
+        }
+        else if($nomTabla == "conjunto_empleado")
+        {
+            $conjunto_empleado = array("codigo del conjunto de empleados:", "codigo del empleado:");
+            echo '<tr><th colspan="2"><h3>Datos del nuevo conjunto de empleados</h3></th></tr>';
+            $this->tablaInsertar($conjunto_empleado,$this->tipoConjuntoEmpleado);
+        }
+        else if($nomTabla == "conjunto_tecnica")
+        {
+            $conjunto_tecnica = array("codigo del conjunto de tecnicas:", "codigo de la tecnica:");
+            echo '<tr><th colspan="2"><h3>Datos del nuevo conjunto de tecnicas</h3></th></tr>';
+            $this->tablaInsertar($conjunto_tecnica,$this->tipoConjuntoEmpleado);
+        }
+        else if($nomTabla == "inventario_instrumento")
+        {
+            $inventario_instrumento = array("codigo del conjunto de instrumentos:", "codigo del instrumento:","cantidad a usar del instrumento:");
+            echo '<tr><th colspan="2"><h3>Datos del  nuevo conjunto de instrumentos</h3></th></tr>';
+            $this->tablaInsertar($inventario_instrumento,$this->tipoInventarioInstrumento);
+        }        
+        else if($nomTabla == "asignacion")
+        {
+            $asignacion = array("codigo del equpo de empleados: ","documento del paciente: ","codigo del tratamiento: ","codigo de la sucursal: ");
+            echo '<tr><th colspan="2"><h3>Datos de la nueva asignacion</h3></th></tr>';
+            $this->tablaInsertar($asignacion,$this->tipoAsignacion);
+        }
+        else if($nomTabla == "tratamiento")
+        {
+            $tratamiento = array("codigo del conjunto de tecnicas: ","codigo del conjunto de instrumentos: ");
+            echo '<tr><th colspan="2"><h3>Datos del nuevo trtamiento</h3></th></tr>';
+            $this->tablaInsertar($tratamiento,$this->tipoTratamiento);
+        }
+        else if($nomTabla == "sucursal")
+        {
+            $sucursal = array("codigo del pais: ", "codigo de la ciudad: ", "nombre de la sucursal:");
+            echo '<tr><th colspan="2"><h3>Datos de la nueva sucursal</h3></th></tr>';
+            $this->tablaInsertar($sucursal,$this->tipoSucursal);
+        }
+        else if($nomTabla == "ciudad")
+        {
+            $ciudad = array("codigo del pais: ","nombre de la ciudad: ");
+            echo '<tr><th colspan="2"><h3>Datos de la nueva ciudad</h3></th></tr>';
+            $this->tablaInsertar($ciudad,$this->tipoCiudad);
+        }
+        else if($nomTabla == "pais")
+        {
+            $pais = array("nombre del pais: ");
+            echo '<tr><th colspan="2"><h3>Datos del nuevo pais</h3></th></tr>';
+            $this->tablaInsertar($pais,$this->tipoPais);
+        }
+        else if($nomTabla == "instrumento")
+        {
+            $instrumento = array("nombre: ");
+            echo '<tr><th colspan="2"><h3>Datos del nuevo instrumento</h3></th></tr>';
+            $this->tablaInsertar($instrumento,$this->tipoPais);
+        }
+        else if($nomTabla == "tecnica")
+        {
+            $instrumento = array("nombre: ");
+            echo '<tr><th colspan="2"><h3>Datos de la nueva tecnica</h3></th></tr>';
+            $this->tablaInsertar($instrumento,$this->tipoPais);
         }
     }
     
@@ -92,6 +185,12 @@ class metodos
             <?php
         }
     }
+    
+    function obtenerNomCol($nomTabla)
+    {
+        $qwerty = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$nomTabla'";
+    }
+    
     function validarCampo($dato)
     {
         if(filter_var($dato,FILTER_VALIDATE_INT) === FALSE)
@@ -103,9 +202,6 @@ class metodos
             return true;
         }
     }
-    function insertar()
-    {
-        
-    }
+
 }
 ?>
