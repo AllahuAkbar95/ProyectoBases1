@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
     <html>
         <head>
             <link href="css/estilo.css" rel="stylesheet" type="text/css">
@@ -11,15 +11,15 @@
             <div id="cuerpo">
                 <center>
                     <?php
-                        if(isset($_POST['selTabla']) || isset($_POST['insertar']))
+                        if(isset($_GET['selTabla']) || isset($_POST['insertar']))
                         {
                     ?>
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <table>
                                     <?php
-                                    if(isset($_POST['selTabla']))
+                                    if(isset($_GET['selTabla']))
                                     {
-                                        $nomTabla = $_POST['tablas'];
+                                        $nomTabla = $_GET['tablas'];
                                     }
                                     else
                                     {
@@ -57,12 +57,10 @@
                                 }
                                 $i ++;
                             }
-                            echo $qwerty."<br>";
                             if($_POST[$i] != "")
                             {
                                 $qwerty = $qwerty.'\''.$_POST[$i].'\'';
                             }
-                            echo $qwerty;
                             if($nomTabla != "empleado" && $nomTabla != "paciente" && $nomTabla != "conjunto_empleado") //gggg que pendejo :v
                             {
                                 $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
@@ -104,7 +102,7 @@
                             pg_close();
                             echo"<h3>el registro se ha realizado con exito</h3>";
                         }
-                        if(!isset($_POST['selTabla']) && !isset($_POST['insertar']))
+                        if(!isset($_GET['selTabla']) && !isset($_POST['insertar']))
                         {
                             echo '<div style="margin-top: 200px;">
                                 <center>
