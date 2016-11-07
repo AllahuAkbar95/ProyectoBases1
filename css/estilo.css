@@ -64,10 +64,14 @@ li a:hover
 div#cabecera #seleccionTabla
 {
     height: 40px;
-    width: 300px;
+    width: 350px;
     position: absolute;
     right: 300px;
     top: 44px;
+}
+div#resultadoConsultar
+{
+    margin-left: 50px;
 }
 select
 {
@@ -93,6 +97,19 @@ select
 div#cuerpo
 {
     width: 100%;
+}
+div#cuerpoConsultar
+{
+    width: 30%;
+}
+div#resultadoConsultar
+{
+    width: 70%;
+    
+    position: absolute;
+    top: 84px;
+    right: 0px;
+    float: right;
 }
 table
 {
