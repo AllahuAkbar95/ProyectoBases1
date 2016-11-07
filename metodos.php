@@ -22,11 +22,11 @@ class metodos
                     <ul>
                         <li><a href="insertar.php">Insertar</a></li>
                         <li><a href="modificar.php">Modificar</a></li>
-                        <li><a href="eliminar.php">Consultar y eliminar</a></li>
+                        <li><a href="consultar.php">Consultar y eliminar</a></li>
                     </ul>
                 </div>
                 <div id="seleccionTabla">
-                    <form id="fTablas" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <form id="fTablas" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <select name="tablas">
                             <option value="paciente">Paciente</option>
                             <option value="empleado">Empleado</option>
@@ -202,6 +202,37 @@ class metodos
             return true;
         }
     }
-
+    
+    function consultar($nomTabla)
+    {
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+        $qwerty = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$nomTabla'";
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);
+        $i =0;
+        while ($row = pg_fetch_array($resultado))
+        {
+            $i++;
+        }
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+        $qwerty = "select * from $nomTabla";
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);
+        echo "<h3>Datos almacenados en la tabla $nomTabla</h3>";
+        while($row = pg_fetch_array($resultado))
+        {
+            echo "<tr>";
+            for($n =0; $n < $i; $n++)
+            {
+                $val = $row[$n];
+                echo "<td>$val</td>";
+            }
+            echo "</tr>";
+        }
+    }
 }
 ?>
