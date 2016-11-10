@@ -61,7 +61,7 @@
                             {
                                 $qwerty = $qwerty.'\''.$_POST[$i].'\'';
                             }
-                            if($nomTabla != "empleado" && $nomTabla != "paciente" && $nomTabla != "conjunto_empleado") //gggg que pendejo :v
+                            if($nomTabla != "empleado" && $nomTabla != "paciente" && $nomTabla != "conjunto_empleado" && $nomTabla != "conjunto_tecnica" && $nomTabla != "inventario_instrumento") //gggg que pendejo :v
                             {
                                 $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
                                     or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");

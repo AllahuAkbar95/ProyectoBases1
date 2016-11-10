@@ -5,11 +5,8 @@ class metodos
     var $tipoPaciente = array("number","text","text","text");
     var $tipoEmpleado = array("number","text","text","number","number");
     var $tipoProfesion = array("text","number");
-    var $tipoAsignacion = array("number","number","number","number");
-    var $tipoTratamiento = array("number","text");
-    var $tipoSucursal = array("number","number","text");
-    var $tipoConjuntoEmpleado = array("number","number");
-    var $tipoInventarioInstrumento = array("number","number","number");
+    var $tipoAsignacion = array("number","number","number");
+    var $tipoInventarioInstrumento = array("number","number","number"); //sobra
     var $tipoCiudad = array("number","text");
     var $tipoPais = array("text");
     
@@ -112,39 +109,39 @@ class metodos
         }
         else if($nomTabla == "conjunto_empleado")
         {
-            $conjunto_empleado = array("codigo del conjunto de empleados:", "codigo del empleado:");
+            $conjunto_empleado = array("codigo del conjunto de empleados:", "codigo del empleado:","codigo de la asignacion:");
             echo '<tr><th colspan="2"><h3>Datos del nuevo conjunto de empleados</h3></th></tr>';
-            $this->tablaInsertar($conjunto_empleado,$this->tipoConjuntoEmpleado);
+            $this->tablaInsertar($conjunto_empleado,$this->tipoAsignacion);
         }
         else if($nomTabla == "conjunto_tecnica")
         {
-            $conjunto_tecnica = array("codigo del conjunto de tecnicas:", "codigo de la tecnica:");
+            $conjunto_tecnica = array("codigo del conjunto de tecnicas:", "codigo de la tecnica:","codigo del tratamiento:");
             echo '<tr><th colspan="2"><h3>Datos del nuevo conjunto de tecnicas</h3></th></tr>';
-            $this->tablaInsertar($conjunto_tecnica,$this->tipoConjuntoEmpleado);
+            $this->tablaInsertar($conjunto_tecnica,$this->tipoAsignacion);
         }
         else if($nomTabla == "inventario_instrumento")
         {
-            $inventario_instrumento = array("codigo del conjunto de instrumentos:", "codigo del instrumento:","cantidad a usar del instrumento:");
+            $inventario_instrumento = array("codigo del conjunto de instrumentos:", "codigo del instrumento:","codigo del tratamiento:");
             echo '<tr><th colspan="2"><h3>Datos del  nuevo conjunto de instrumentos</h3></th></tr>';
-            $this->tablaInsertar($inventario_instrumento,$this->tipoInventarioInstrumento);
+            $this->tablaInsertar($inventario_instrumento,$this->tipoAsignacion);
         }        
         else if($nomTabla == "asignacion")
         {
-            $asignacion = array("codigo del equpo de empleados: ","documento del paciente: ","codigo del tratamiento: ","codigo de la sucursal: ");
+            $asignacion = array("documento del paciente: ","codigo del tratamiento: ","codigo de la sucursal: ");
             echo '<tr><th colspan="2"><h3>Datos de la nueva asignacion</h3></th></tr>';
             $this->tablaInsertar($asignacion,$this->tipoAsignacion);
         }
         else if($nomTabla == "tratamiento")
         {
-            $tratamiento = array("codigo del conjunto de tecnicas: ","codigo del conjunto de instrumentos: ");
+            $tratamiento = array("nombre de la enfermedad que trata:");
             echo '<tr><th colspan="2"><h3>Datos del nuevo trtamiento</h3></th></tr>';
-            $this->tablaInsertar($tratamiento,$this->tipoTratamiento);
+            $this->tablaInsertar($tratamiento,$this->tipoPais);
         }
         else if($nomTabla == "sucursal")
         {
-            $sucursal = array("codigo del pais: ", "codigo de la ciudad: ", "nombre de la sucursal:");
+            $sucursal = array("codigo de la ciudad: ", "nombre de la sucursal:");
             echo '<tr><th colspan="2"><h3>Datos de la nueva sucursal</h3></th></tr>';
-            $this->tablaInsertar($sucursal,$this->tipoSucursal);
+            $this->tablaInsertar($sucursal,$this->tipoCiudad);
         }
         else if($nomTabla == "ciudad")
         {
