@@ -30,7 +30,7 @@ div#cabecera
 }
 div#contenidoCabecera
 {
-    width: 400px;
+    width: 480px;
     height: 40px;
     position: absolute;
     left: 300px;
@@ -69,10 +69,6 @@ div#cabecera #seleccionTabla
     right: 300px;
     top: 44px;
 }
-div#resultadoConsultar
-{
-    margin-left: 50px;
-}
 select
 {
     background-color: #3E4729;
@@ -104,11 +100,17 @@ div#cuerpoConsultar
 }
 div#resultadoConsultar
 {
-    width: 70%;
-    
+    width: 50%;    
     position: absolute;
-    top: 84px;
-    right: 0px;
+    top: 90px;
+    float: left;
+}
+div#eliminar
+{
+    width: 50%;    
+    position: absolute;
+    top: 90px;
+    right: 1px;
     float: right;
 }
 table
