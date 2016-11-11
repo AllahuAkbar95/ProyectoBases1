@@ -20,6 +20,7 @@ class metodos
                         <li><a href="insertar.php">Insertar</a></li>
                         <li><a href="modificar.php">Modificar</a></li>
                         <li><a href="consultar.php">Consultar y eliminar</a></li>
+                        <li><a href="consultas.php">Consultas</a></li>
                     </ul>
                 </div>
                 <div id="seleccionTabla">

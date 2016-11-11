@@ -9,7 +9,7 @@
             <?php $metodos->encabezado(); ?>
             <div id="bodyIndex">
                 <div id="contIndex">
-                    Bienvenido al sistema gestor de datos del hospital falso
+                    Bienvenido al sistema de gestion de datos de nuestro laboratorio de diagnostico y tratamiento
                 </div>
             </div>
         </body>
