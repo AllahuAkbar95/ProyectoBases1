@@ -183,9 +183,55 @@ class metodos
         }
     }
     
+    function tablaModificar($nomTabla,$codigo)
+    {
+        $columnas = $this->obtenerNomCol($nomTabla);
+        $llave = $this->obtenerPK($nomTabla);
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+        $qwerty = "select * from $nomTabla where $llave = $codigo";
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);
+        if($row = pg_fetch_array($resultado))
+        {
+            for($n =0; $n<count($columnas); $n++)
+            {
+                ?>
+                <tr>
+                    <td><?php echo $columnas[$n]; ?></td>
+                    <td><input type="text" name="<?php echo $n; ?>" value="<?php echo $row[$n]; ?>" class="requerido" required></td>
+                </tr>
+                <?php
+            }
+        }
+    }
+    
+    function modificar($qwerty)
+    {
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);                    
+    }
+    
     function obtenerNomCol($nomTabla)
     {
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
         $qwerty = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$nomTabla'";
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);
+        $i = 0;
+        $arregloCol;
+        while ($row = pg_fetch_array($resultado))
+        {
+            $arregloCol[$i] =  $row[0];
+            $i ++;
+        }
+        return  $arregloCol;
     }
     
     function validarCampo($dato)
@@ -202,6 +248,7 @@ class metodos
     
     function consultar($nomTabla)
     {
+        $arregloCol = $this->obtenerNomCol($nomTabla);
         $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
                                     or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
         $qwerty = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$nomTabla'";
@@ -220,6 +267,13 @@ class metodos
                             or die("<h3>no se pudo realizar la consulta</h3>");
         pg_close($conection);
         echo "<h3>Datos almacenados en la tabla $nomTabla</h3>";
+        echo "<tr>";
+        for($in =0; $in <count($arregloCol); $in++)
+        {
+            echo "<td>$arregloCol[$in]</td>";
+        }
+        echo "</tr>";
+        
         while($row = pg_fetch_array($resultado))
         {
             echo "<tr>";
@@ -231,5 +285,31 @@ class metodos
             echo "</tr>";
         }
     }
+    
+    function eliminar($nomTabla,$llave,$codigo){   
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+        $qwerty = "delete from $nomTabla where $llave = $codigo";
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);
+    }
+    function obtenerPK($nomTabla)
+    {
+        $conection = pg_connect("host=localhost port=5432 dbname=anovack_proyB user=anovack password=bases1234")
+                                    or die("<h3 class=\"mensaje\">no se pudo conectar a la base de datos</h3>");
+        $llave = $nomTabla."_pkey";                        
+        $qwerty = "select column_name from information_schema.key_column_usage where TABLE_NAME='$nomTabla' and constraint_name='$llave'";
+        $resultado = pg_exec($conection,$qwerty)
+                            or die("<h3>no se pudo realizar la consulta</h3>");
+        pg_close($conection);
+        if($row = pg_fetch_array($resultado))
+        {
+            $valor = $row[0];
+            return $valor;
+        }
+    }
+    
+    
 }
 ?>

@@ -9,13 +9,38 @@
         <body>
             <?php $metodos->encabezado(); ?>
             <?php //KALDGNDSKÑLGSLDKGJGDKLJGKJLKJL
-                if(isset($_GET['selTabla']))
+                if(isset($_GET['selTabla']) || isset($_GET['borrar']))
                 {
+                    if(isset($_GET['selTabla']))
+                    {
+                        $nomTabla = $_GET['tablas'];
+                    }
+                    else
+                    {
+                        $nomTabla = $_GET['nomTablaE'];
+                    }
                     ?>
+                    <div id="eliminar">
+                        <h3>inserte codigo del elemento a eliminar:</h3>
+                        <br>
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+                            <input type="hidden" name="nomTablaE" value="<?php if(isset($_GET['nomTablaE'])){ echo $_GET['nomTablaE'];}else{echo $_GET['tablas'];} ?>">
+                            <input type="number" name="codigo" class="requerido" required>       
+                            <input type="submit" value="Eliminar" name="borrar" class="boton"/>
+                        </form>
+                        <?php
+                        if(isset($_GET['borrar']))
+                        {
+                            $llave=$metodos->obtenerPK($_GET['nomTablaE']);
+                            $metodos->eliminar($_GET['nomTablaE'],$llave,$_GET['codigo']);
+                            echo ' <center>Registro Eliminado</center>';
+                        }
+                        ?>
+                    </div>
                     <div id="resultadoConsultar">
-                        <table>
+                        <table border="2">
                             <?php
-                                echo $metodos->consultar($_GET['tablas']);
+                                echo $metodos->consultar($nomTabla);
                             ?>
                         </table>
                     </div>
